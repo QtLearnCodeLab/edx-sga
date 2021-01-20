@@ -12,6 +12,10 @@
     <% if (upload_allowed) { %>
       <p class="upload">
         <label>
+            <input type="text" name="assignment" />
+        </label>
+        <p> OR </p><br>
+        <label>
           <% if (uploaded) { %>
             {% trans "Upload a different file" %}
           <% } else { %>
@@ -69,6 +73,7 @@
         <th class="header">{% trans "Username" %} <i class="icon fa fa-sort"/></th>
         <th class="header">{% trans "Name" %} <i class="icon fa fa-sort"/></th>
         <th class="header">{% trans "Filename" %} <i class="icon fa fa-sort"/></th>
+        <th class="header">{% trans "Assignment-Url" %} <i class="icon fa fa-sort"/></th>
         <th class="header">{% trans "Uploaded" %} <i class="icon fa fa-sort"/></th>
         <th class="header">{% trans "Submitted" %} <i class="icon fa fa-sort"/></th>
         <th class="header">{% trans "Grade" %} <i class="icon fa fa-sort"/></th>
