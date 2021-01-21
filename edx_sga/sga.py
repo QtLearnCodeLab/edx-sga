@@ -192,7 +192,7 @@ class StaffGradedAssignmentXBlock(StudioEditableXBlockMixin, ShowAnswerXBlockMix
         if 'solution' in node.attrib:
             # Try outputting it as an XML element if we can
             solution = node.attrib['solution']
-            wrapped = f"<solution>{solution}</solution>"
+            wrapped = f"<solution>{}</solution>".format(solution)
             try:
                 child = etree.fromstring(wrapped)
             except:  # pylint: disable=bare-except
