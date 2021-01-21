@@ -682,9 +682,7 @@ class StaffGradedAssignmentXBlock(StudioEditableXBlockMixin, ShowAnswerXBlockMix
         if submissions:
             # If I understand docs correctly, most recent submission should
             # be first
-            return submissions[0]
-        
-            return    
+            return submissions[0] 
 
         return None
 
