@@ -74,7 +74,7 @@ class StaffGradedAssignmentXBlock(StudioEditableXBlockMixin, ShowAnswerXBlockMix
     """
     has_score = True
     icon_class = 'problem'
-    STUDENT_FILEUPLOAD_MAX_SIZE = 10 * 1000 * 1000  # 4 MB
+    STUDENT_FILEUPLOAD_MAX_SIZE = 4 * 1000 * 1000  # 4 MB
     editable_fields = ('display_name', 'points', 'weight', 'showanswer', 'solution')
 
     display_name = String(
@@ -246,7 +246,7 @@ class StaffGradedAssignmentXBlock(StudioEditableXBlockMixin, ShowAnswerXBlockMix
         require(self.upload_allowed())
         user = self.get_real_user()
         require(user)
-        upload = request.params['assignment'] 
+        upload = request.params['assignment']
         sha1 = get_sha1(upload.file)
         if self.file_size_over_limit(upload.file):
             raise JsonHandlerError(
@@ -614,7 +614,6 @@ class StaffGradedAssignmentXBlock(StudioEditableXBlockMixin, ShowAnswerXBlockMix
         # pylint: disable=unused-argument
         """
         For a given user, clears submissions and uploaded files for this XBlock.
-
         Staff users are able to delete a learner's state for a block in LMS. When that capability is
         used, the block's "clear_student_state" function is called if it exists.
         """
@@ -682,7 +681,7 @@ class StaffGradedAssignmentXBlock(StudioEditableXBlockMixin, ShowAnswerXBlockMix
         if submissions:
             # If I understand docs correctly, most recent submission should
             # be first
-            return submissions[0] 
+            return submissions[0]
 
         return None
 
@@ -721,10 +720,8 @@ class StaffGradedAssignmentXBlock(StudioEditableXBlockMixin, ShowAnswerXBlockMix
     def get_student_module(self, module_id):
         """
         Returns a StudentModule that matches the given id
-
         Args:
             module_id (int): The module id
-
         Returns:
             StudentModule: A StudentModule object
         """
@@ -733,7 +730,6 @@ class StaffGradedAssignmentXBlock(StudioEditableXBlockMixin, ShowAnswerXBlockMix
     def get_or_create_student_module(self, user):
         """
         Gets or creates a StudentModule for the given user for this block
-
         Returns:
             StudentModule: A StudentModule object
         """
