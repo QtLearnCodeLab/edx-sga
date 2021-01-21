@@ -12,6 +12,10 @@
     <% if (upload_allowed) { %>
       <p class="upload">
         <label>
+            <input type="text" name="assignment" />
+        </label>
+        <p> OR </p>
+        <label>
           <% if (uploaded) { %>
             {% trans "Upload a different file" %}
           <% } else { %>
