@@ -11,6 +11,13 @@
     <% } %>
     <% if (upload_allowed) { %>
       <p class="upload">
+        <p>
+          <input class="TextInput" type="text" name="assignment1" />
+          <a class="button text-input">Submit</a>
+          <p class = "update"></p>
+        </p>
+        <p>OR</p>
+
         <label>
           <% if (uploaded) { %>
             {% trans "Upload a different file" %}
@@ -24,7 +31,7 @@
     <% if (uploaded) { %>
       <div class="sequential-status-message">
         <p>
-          <b>{% trans "File uploaded" %}</b>
+          <b>{% trans "Assignment uploaded" %}</b>
           <a href="<%= downloadUrl %>"><%= uploaded.filename %></a>
         </p>
         <p>

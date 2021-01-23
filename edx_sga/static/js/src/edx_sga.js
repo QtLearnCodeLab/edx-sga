@@ -1,6 +1,7 @@
 /* Javascript for StaffGradedAssignmentXBlock. */
 function StaffGradedAssignmentXBlock(runtime, element) {
     function xblock($, _) {
+        var saveTextInput = runtime.handlerUrl(element, 'save_text_input');
         var uploadUrl = runtime.handlerUrl(element, 'upload_assignment');
         var finalizeUploadUrl = runtime.handlerUrl(element, 'finalize_uploaded_assignment');
         var downloadUrl = runtime.handlerUrl(element, 'download_assignment');
@@ -32,7 +33,21 @@ function StaffGradedAssignmentXBlock(runtime, element) {
 
             // Render template
             var content = $(element).find('#sga-content').html(template(state));
-
+           $(content).find('.text-input').on('click', function() {
+            console.log('BUTTON CLICKED');
+                $.post(saveTextInput, 
+                  {assignment: $(content).find('.TextInput').val() },
+                  function(data, status, jqXHR) {// success callback
+                    if(status === "success"){
+                      $(content).find('.update').text('Your assignment is submitted for grading.');
+                    } else {
+                      $(content).find('.update').text('There was some error submitting your assignment,Try Again! or contact your instructor.');
+                    }
+                    console.log('There was an error with text saving.');
+                    console.log('status: ', status);
+                    console.log('data: ', data);
+            })
+            }),
             $(content).find('.finalize-upload').on('click', function() {
               $.post(finalizeUploadUrl).success(
                   function (state) {
@@ -115,7 +130,6 @@ function StaffGradedAssignmentXBlock(runtime, element) {
                     }
                 }
             });
-
             updateChangeEvent(fileUpload);
             if (state.error) {
               $(content).find('p.error').focus();
@@ -242,7 +256,7 @@ function StaffGradedAssignmentXBlock(runtime, element) {
                 var max_score = row.parents('#grade-info').data('max_score');
                 var score = Number(form.find('#grade-input').val());
                 event.preventDefault();
-                if (!score) {
+                if (isNaN(score)) {
                     gradeFormError('<br/>'+gettext('Grade must be a number.'));
                 } else if (score !== parseInt(score)) {
                     gradeFormError('<br/>'+gettext('Grade must be an integer.'));

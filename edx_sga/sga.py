@@ -236,6 +236,25 @@ class StaffGradedAssignmentXBlock(StudioEditableXBlockMixin, ShowAnswerXBlockMix
                     400, 'Weight must be a positive decimal number'
                 )
         self.weight = weight
+    @XBlock.handler    
+    def save_text_input(self, request, suffix=''):
+        '''
+        Saving assignment of text format in submission application.
+        '''
+        require(self.upload_allowed())
+        user = self.get_real_user()
+        require(user)
+        log.info("***USER*****: %s",user.username)
+        upload = request.params['assignment']
+        log.info("Saving file: %s %s", upload,user.username)
+        self.get_or_create_student_module(user)
+        answer = {
+            "filename": upload,
+            "finalized": False
+        }
+        student_item_dict = self.get_student_item_dict()
+        submissions_api.create_submission(student_item_dict, answer)
+        return Response(json_body=self.student_state())
 
     @XBlock.handler
     def upload_assignment(self, request, suffix=''):
