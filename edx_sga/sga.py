@@ -848,6 +848,7 @@ class StaffGradedAssignmentXBlock(StudioEditableXBlockMixin, ShowAnswerXBlockMix
                     'submission_id': submission['uuid'],
                     'username': student_module.student.username,
                     'fullname': student_module.student.profile.name,
+                    'sha1': submission['answer']["sha1"],
                     'filename': submission['answer']["filename"],
                     'timestamp': submission['created_at'].strftime(
                         DateTime.DATETIME_FORMAT
