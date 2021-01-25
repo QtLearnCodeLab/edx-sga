@@ -249,6 +249,8 @@ class StaffGradedAssignmentXBlock(StudioEditableXBlockMixin, ShowAnswerXBlockMix
         log.info("Saving file: %s %s", upload,user.username)
         self.get_or_create_student_module(user)
         answer = {
+            "sha1": None,
+            "mimetype": "text",
             "filename": upload,
             "finalized": False
         }
@@ -778,7 +780,7 @@ class StaffGradedAssignmentXBlock(StudioEditableXBlockMixin, ShowAnswerXBlockMix
         """
         submission = self.get_submission()
         if submission:
-            uploaded = {"filename": submission['answer']['filename']}
+            uploaded = {"filename": submission['answer']['filename'], "sha1": submission['answer']['sha1']}
         else:
             uploaded = None
 
@@ -878,6 +880,7 @@ class StaffGradedAssignmentXBlock(StudioEditableXBlockMixin, ShowAnswerXBlockMix
             if is_finalized_submission(submission_data=submission):
                 assignments.append({
                     'submission_id': submission['uuid'],
+                    'sha1': submission['answer']["sha1"],
                     'filename': submission['answer']["filename"],
                     'timestamp': submission['submitted_at'] or submission['created_at']
                 })
